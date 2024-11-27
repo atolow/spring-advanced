@@ -3,6 +3,8 @@ package com.sparta.currency_user.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+import java.util.List;
+
 @Entity
 @Getter
 public class User extends BaseEntity{
@@ -12,6 +14,10 @@ public class User extends BaseEntity{
 
     private String name;
     private String email;
+
+    @OneToMany
+    @JoinColumn(name="userId")
+    List<Middle> middlelist;
 
     public User(String name, String email) {
         this.name = name;
