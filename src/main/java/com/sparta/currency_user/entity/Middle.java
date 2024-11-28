@@ -1,9 +1,7 @@
 package com.sparta.currency_user.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.antlr.v4.runtime.misc.NotNull;
 
 import java.math.BigDecimal;
@@ -48,5 +46,8 @@ public class Middle {
         this.amount_in_krw = amount_in_krw;
         this.amount_after_exchange = amount_after_exchange;
         this.status = status;
+    }
+    public void changeStatusCancelled(){
+        this.status = MiddleStatus.CANCELLED;
     }
 }

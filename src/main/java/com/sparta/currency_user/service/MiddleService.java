@@ -54,7 +54,7 @@ public class MiddleService {
     }
 
 
-    public List<MiddleResponseDto> getExchangeList(Long userId) {
+    public List<MiddleResponseDto> getMiddleList(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(UserNotFoundException::new);
 
@@ -68,6 +68,15 @@ public class MiddleService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
+    public UpdateResponseDto updateStatus(Long middleId) {
+
+        Middle middle = middleRepository.findById(middleId).orElseThrow(() -> new IllegalArgumentException("통화를 찾을 수 없습니다."));
+        middle.changeStatusCancelled();
+
+        return new UpdateResponseDto(middle);
+
+    }
     @Transactional
     public void deleteUser(Long userId) {
         User user = userRepository.findById(userId)

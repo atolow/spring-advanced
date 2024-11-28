@@ -4,6 +4,7 @@ package com.sparta.currency_user.controller;
 import com.sparta.currency_user.dto.MiddleRequestDto;
 import com.sparta.currency_user.dto.MiddleResponseDto;
 
+import com.sparta.currency_user.dto.UpdateResponseDto;
 import com.sparta.currency_user.entity.User;
 import com.sparta.currency_user.error.UserNotFoundException;
 import com.sparta.currency_user.repository.CurrencyRepository;
@@ -28,22 +29,31 @@ public class MiddleController {
 
     @GetMapping
     public ResponseEntity<List<MiddleResponseDto>> findMiddle() {
-        return ResponseEntity.ok().body(middleService.findAll());
+        List<MiddleResponseDto> allList = middleService.findAll();
+        return new ResponseEntity<>(allList, HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<MiddleResponseDto> save(
             @RequestBody MiddleRequestDto requestDto) {
-        return ResponseEntity.ok().body(middleService.save(requestDto));
+        MiddleResponseDto save = middleService.save(requestDto);
+        return new ResponseEntity<>(save,HttpStatus.CREATED);
 
     }
 
     @GetMapping("/{userId}")
-    public List<MiddleResponseDto> findExchangeListByUserId(@PathVariable Long userId) {
-        return middleService.getExchangeList(userId);
+    public ResponseEntity<List<MiddleResponseDto>> findMiddleListByUserId(@PathVariable Long userId) {
+        List<MiddleResponseDto> exchangeList = middleService.getMiddleList(userId);
+        return new ResponseEntity<>(exchangeList,HttpStatus.OK);
     }
 
+    @PatchMapping("/id")
+    public ResponseEntity<UpdateResponseDto> updateStatus(@PathVariable Long middleId){
+        UpdateResponseDto updateResponseDto = middleService.updateStatus(middleId);
+        return new ResponseEntity<>(updateResponseDto, HttpStatus.OK);
 
+
+    }
 
 
     @DeleteMapping("/{userId}")
