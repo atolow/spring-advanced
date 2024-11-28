@@ -1,5 +1,6 @@
 package com.sparta.currency_user.entity;
 
+
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -9,22 +10,21 @@ import java.util.List;
 
 @Entity
 @Getter
-public class Currency extends BaseEntity {
+public class Currency extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String currencyName;
-    private BigDecimal exchangeRate;
+    private BigDecimal exchangeRate= BigDecimal.valueOf(900);
     private String symbol;
 
     @OneToMany
     @JoinColumn(name = "currencyId")
     List<Middle> middlelist = new ArrayList<>();
 
-    public Currency(String currencyName, BigDecimal exchangeRate, String symbol) {
+    public Currency(String currencyName, String symbol) {
         this.currencyName = currencyName;
-        this.exchangeRate = exchangeRate;
         this.symbol = symbol;
     }
 

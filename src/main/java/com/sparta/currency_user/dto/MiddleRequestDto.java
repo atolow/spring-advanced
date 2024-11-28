@@ -5,14 +5,16 @@ import com.sparta.currency_user.entity.Currency;
 import com.sparta.currency_user.entity.User;
 
 import lombok.Getter;
+import org.antlr.v4.runtime.misc.NotNull;
 
 import java.math.BigDecimal;
 
 @Getter
 public class MiddleRequestDto {
-    Currency currency;
-    User user;
+    @NotNull
+    Long currency;
+    @NotNull
+    Long user;
+    @NotNull
     BigDecimal amount_in_krw;
-    Double amount_after_exchange;
-    String status;
 }

@@ -1,12 +1,10 @@
 package com.sparta.currency_user.service;
 
-import com.sparta.currency_user.dto.CurrencyRequestDto;
-import com.sparta.currency_user.dto.CurrencyResponseDto;
-import com.sparta.currency_user.dto.MiddleResponseDto;
-import com.sparta.currency_user.dto.UserResponseDto;
+import com.sparta.currency_user.dto.*;
 import com.sparta.currency_user.entity.Currency;
 import com.sparta.currency_user.entity.Middle;
 import com.sparta.currency_user.entity.User;
+import com.sparta.currency_user.error.DataNotFoundException;
 import com.sparta.currency_user.error.UserNotFoundException;
 import com.sparta.currency_user.repository.CurrencyRepository;
 import com.sparta.currency_user.repository.MiddleRepository;
@@ -18,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class MiddleService {
@@ -35,10 +35,10 @@ public class MiddleService {
     public List<MiddleResponseDto> findAll() {
         return middleRepository.findAll().stream().map(MiddleResponseDto::toDto).toList();
     }
-    public MiddleResponseDto save(MiddleResponseDto dto){
-        User findUser = userRepository.findById(dto.getUser().getId())
+    public MiddleResponseDto save(MiddleRequestDto dto){
+        User findUser = userRepository.findById(dto.getUser())
                 .orElseThrow(UserNotFoundException::new);
-        Currency findCurrency = currencyRepository.findById(dto.getCurrency().getId())
+        Currency findCurrency = currencyRepository.findById(dto.getCurrency())
                 .orElseThrow(UserNotFoundException::new);
 
         BigDecimal amountInKrw = dto.getAmount_in_krw();
@@ -51,6 +51,21 @@ public class MiddleService {
         Middle result = middleRepository.save(middle);
 
         return new MiddleResponseDto(result);
+    }
+
+
+    public List<MiddleResponseDto> getExchangeList(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(UserNotFoundException::new);
+
+        List<Middle> middle = middleRepository.findByUser(user);
+
+        if (middle.isEmpty()) {
+            throw new DataNotFoundException();
+        }
+
+        return middle.stream().map(MiddleResponseDto::new)
+                .collect(Collectors.toList());
     }
 
     @Transactional

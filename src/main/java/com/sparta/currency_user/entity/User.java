@@ -16,7 +16,7 @@ public class User extends BaseEntity{
     private String name;
     private String email;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     @JoinColumn(name="userId")
     List<Middle> middlelist = new ArrayList<>();
 

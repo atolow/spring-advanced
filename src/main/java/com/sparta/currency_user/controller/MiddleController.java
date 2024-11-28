@@ -1,6 +1,7 @@
 package com.sparta.currency_user.controller;
 
 
+import com.sparta.currency_user.dto.MiddleRequestDto;
 import com.sparta.currency_user.dto.MiddleResponseDto;
 
 import com.sparta.currency_user.entity.User;
@@ -32,10 +33,16 @@ public class MiddleController {
 
     @PostMapping
     public ResponseEntity<MiddleResponseDto> save(
-            @RequestBody MiddleResponseDto responseDto) {
-        return ResponseEntity.ok().body(middleService.save(responseDto));
+            @RequestBody MiddleRequestDto requestDto) {
+        return ResponseEntity.ok().body(middleService.save(requestDto));
 
     }
+
+    @GetMapping("/{userId}")
+    public List<MiddleResponseDto> findExchangeListByUserId(@PathVariable Long userId) {
+        return middleService.getExchangeList(userId);
+    }
+
 
 
 
