@@ -1,5 +1,6 @@
 package com.sparta.currency_user.exception;
 
+import com.sparta.currency_user.error.CustomException;
 import com.sparta.currency_user.error.DataNotFoundException;
 import com.sparta.currency_user.error.UserNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -13,8 +14,8 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<Map<String, String>> handleIllegalArgumentException(IllegalArgumentException ex) {
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<Map<String, String>> handleCustomException(CustomException ex) {
 
         Map<String, String> response = new HashMap<>();
         response.put("error", ex.getMessage());
@@ -23,29 +24,5 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(response);
     }
-
-
-    @ExceptionHandler(DataNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handleDataNotFoundException(DataNotFoundException ex) {
-
-        Map<String, String> response = new HashMap<>();
-        response.put("error", ex.getMessage());
-
-        return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(response);
-    }
-
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handleUserNotFoundException(UserNotFoundException ex) {
-
-        Map<String, String> response = new HashMap<>();
-        response.put("error", ex.getMessage());
-
-        return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(response);
-    }
-
 
 }
