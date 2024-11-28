@@ -4,11 +4,12 @@ import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
-public class Currency extends BaseEntity{
+public class Currency extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,8 +19,8 @@ public class Currency extends BaseEntity{
     private String symbol;
 
     @OneToMany
-    @JoinColumn(name="currencyId")
-    List<Middle> middlelist;
+    @JoinColumn(name = "currencyId")
+    List<Middle> middlelist = new ArrayList<>();
 
     public Currency(String currencyName, BigDecimal exchangeRate, String symbol) {
         this.currencyName = currencyName;
@@ -27,5 +28,6 @@ public class Currency extends BaseEntity{
         this.symbol = symbol;
     }
 
-    public Currency() {}
+    public Currency() {
+    }
 }

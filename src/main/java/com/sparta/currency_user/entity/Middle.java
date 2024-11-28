@@ -1,15 +1,16 @@
 package com.sparta.currency_user.entity;
 
-import com.sparta.currency_user.Const.StatusType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.antlr.v4.runtime.misc.NotNull;
+
+import java.math.BigDecimal;
 
 @Entity
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
+
 public class Middle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,11 +25,28 @@ public class Middle {
     User user;
 
     @Column(nullable = false)
-    Long amount_in_krw;
+    BigDecimal amount_in_krw;
 
     @Column(nullable = false)
-    Double amount_after_exchange;
+    BigDecimal amount_after_exchange;
 
-    @Column(nullable = false)
-    StatusType statusType;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", columnDefinition = "ENUM('NORMAL', 'CANCELLED')")
+    @NotNull
+    private MiddleStatus status;
+    public enum MiddleStatus {
+        NORMAL,
+        CANCELLED
+    }
+
+    public Middle() {
+    }
+
+    public Middle(Currency currency, User user, BigDecimal amount_in_krw, BigDecimal amount_after_exchange, MiddleStatus status) {
+        this.currency = currency;
+        this.user = user;
+        this.amount_in_krw = amount_in_krw;
+        this.amount_after_exchange = amount_after_exchange;
+        this.status = status;
+    }
 }
