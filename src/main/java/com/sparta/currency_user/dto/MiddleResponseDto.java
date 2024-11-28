@@ -1,33 +1,29 @@
 package com.sparta.currency_user.dto;
 
-import com.sparta.currency_user.Const.StatusType;
+
 import com.sparta.currency_user.entity.Currency;
 import com.sparta.currency_user.entity.Middle;
 import com.sparta.currency_user.entity.User;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 
 import java.math.BigDecimal;
 
 @Getter
 public class MiddleResponseDto {
-    Long id;
-    Currency currency;
-    User user;
-    BigDecimal amount_in_krw;
-    BigDecimal amount_after_exchange;
-    StatusType statusType;
+    private Long id;
+    private Currency currency;
+    private User user;
+    private BigDecimal amount_in_krw;
+    private BigDecimal amount_after_exchange;
+    private String status;
 
-
-    public MiddleResponseDto(Long id, Currency currency, User user, BigDecimal amount_in_krw, BigDecimal amount_after_exchange, StatusType statusType) {
+    public MiddleResponseDto(Long id, Currency currency, User user, BigDecimal amount_in_krw, BigDecimal amount_after_exchange, Middle.MiddleStatus status) {
         this.id = id;
         this.currency = currency;
         this.user = user;
         this.amount_in_krw = amount_in_krw;
         this.amount_after_exchange = amount_after_exchange;
-        this.statusType = statusType;
+        this.status = String.valueOf(status);
     }
 
     public MiddleResponseDto(Middle middle) {
@@ -36,7 +32,7 @@ public class MiddleResponseDto {
         this.user = middle.getUser();
         this.amount_in_krw = middle.getAmount_in_krw();
         this.amount_after_exchange = middle.getAmount_after_exchange();
-        this.statusType = getStatusType();
+        this.status = middle.getStatus().name();
     }
 
 
@@ -48,7 +44,7 @@ public class MiddleResponseDto {
                 middle.getUser(),
                 middle.getAmount_in_krw(),
                 middle.getAmount_after_exchange(),
-                middle.getStatusType()
+                middle.getStatus()
         );
     }
 

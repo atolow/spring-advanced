@@ -1,6 +1,6 @@
 package com.sparta.currency_user.error;
 
-public class UserNotFoundException extends CustomException {
+public class UserNotFoundException extends RuntimeException {
 
     public UserNotFoundException() {
         super("해당 아이디를 찾을 수 없습니다. 아이디를 다시 확인해주세요.");

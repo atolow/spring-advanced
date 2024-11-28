@@ -53,5 +53,13 @@ public class MiddleService {
         return new MiddleResponseDto(result);
     }
 
+    @Transactional
+    public void deleteUser(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(UserNotFoundException::new);
+
+        userRepository.deleteById(user.getId());
+    }
+
 
 }
