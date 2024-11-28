@@ -15,11 +15,11 @@ public class Middle {
     Long id;
 
     @ManyToOne
-    @JoinColumn(name="currencyId")
+    @JoinColumn(name = "to_currency_id")
     Currency currency;
 
     @ManyToOne
-    @JoinColumn(name="userId")
+    @JoinColumn(name = "user_id")
     User user;
 
     @Column(nullable = false)
@@ -48,6 +48,12 @@ public class Middle {
         this.status = status;
     }
     public void changeStatusCancelled(){
-        this.status = MiddleStatus.CANCELLED;
+
+        if(status == MiddleStatus.CANCELLED){
+            status=MiddleStatus.NORMAL;
+        }
+        else{
+            status = MiddleStatus.CANCELLED;
+        }
     }
 }

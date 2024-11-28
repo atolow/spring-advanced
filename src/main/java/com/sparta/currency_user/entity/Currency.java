@@ -16,17 +16,18 @@ public class Currency extends BaseEntity{
     private Long id;
 
     private String currencyName;
-    private BigDecimal exchangeRate= BigDecimal.valueOf(900);
+    private BigDecimal exchangeRate;
     private String symbol;
 
-    @OneToMany
-    @JoinColumn(name = "currencyId")
+    @OneToMany(mappedBy = "currency")
     List<Middle> middlelist = new ArrayList<>();
 
-    public Currency(String currencyName, String symbol) {
+    public Currency(String currencyName, BigDecimal exchangeRate, String symbol) {
         this.currencyName = currencyName;
+        this.exchangeRate = exchangeRate;
         this.symbol = symbol;
     }
+
 
     public Currency() {
     }

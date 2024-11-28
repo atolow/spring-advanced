@@ -9,18 +9,20 @@ import java.math.BigDecimal;
 public class CurrencyResponseDto {
     private Long id;
     private String currencyName;
-    private BigDecimal exchangeRate= BigDecimal.valueOf(900);
+    private BigDecimal exchangeRate;
     private String symbol;
 
     public CurrencyResponseDto(Currency currency) {
         this.id = currency.getId();
         this.currencyName = currency.getCurrencyName();
+        this.exchangeRate =currency.getExchangeRate();
         this.symbol = currency.getSymbol();
     }
 
     public CurrencyResponseDto(Long id, String currencyName, BigDecimal exchangeRate, String symbol) {
         this.id = id;
         this.currencyName = currencyName;
+        this.exchangeRate = exchangeRate;
         this.symbol = symbol;
     }
 

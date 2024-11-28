@@ -19,6 +19,7 @@ public class CurrencyRequestDto {
     public Currency toEntity() {
         return new Currency(
                 this.currencyName,
+                this.exchangeRate,
                 this.symbol
         );
     }

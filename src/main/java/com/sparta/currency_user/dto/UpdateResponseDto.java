@@ -2,8 +2,8 @@ package com.sparta.currency_user.dto;
 
 
 import com.sparta.currency_user.entity.Middle;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
 
 @Getter
 public class UpdateResponseDto {

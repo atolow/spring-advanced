@@ -1,7 +1,7 @@
 package com.sparta.currency_user.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
 
 @Getter
 public class UpdateRequestDto {
