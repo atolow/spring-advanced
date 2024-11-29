@@ -6,8 +6,8 @@ import lombok.Getter;
 @Getter
 public class UpdateRequestDto {
 
-    @NotNull
-    private Long exchangeId;
+    @NotNull(message = "middleId은 필수값 입니다. 추가해주세요")
+    private Long middleId;
 
     public UpdateRequestDto() {}
 }

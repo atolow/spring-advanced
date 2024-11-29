@@ -4,6 +4,7 @@ package com.sparta.currency_user.controller;
 import com.sparta.currency_user.dto.MiddleRequestDto;
 import com.sparta.currency_user.dto.MiddleResponseDto;
 
+import com.sparta.currency_user.dto.MiddleSummaryResponseDto;
 import com.sparta.currency_user.dto.UpdateResponseDto;
 
 
@@ -59,5 +60,11 @@ public class MiddleController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/summaries/{userId}")
+    public ResponseEntity<List<MiddleSummaryResponseDto>> findMiddleSummaryList(@PathVariable Long userId) {
+        return new ResponseEntity<>(middleService.getMiddleSummaryList(userId), HttpStatus.OK);
+    }
+
 
 }

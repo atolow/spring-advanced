@@ -1,20 +1,18 @@
 package com.sparta.currency_user.dto;
 
 
-import com.sparta.currency_user.entity.Currency;
-import com.sparta.currency_user.entity.User;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
-import org.antlr.v4.runtime.misc.NotNull;
 
 import java.math.BigDecimal;
 
 @Getter
 public class MiddleRequestDto {
-    @NotNull
+    @NotNull(message = "currency는 필수값 입니다. 추가해주세요")
     Long currency;
-    @NotNull
+    @NotNull(message = "user는 필수값 입니다. 추가해주세요")
     Long user;
-    @NotNull
+    @NotNull(message = "환전 금액은 필수값 입니다. 숫자 형태로 입력해주세요")
     BigDecimal amount_in_krw;
 }

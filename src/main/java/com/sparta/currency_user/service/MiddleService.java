@@ -30,7 +30,7 @@ public class MiddleService {
     }
 
     public Middle findMiddleById(Long id) {
-        return middleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("통화를 찾을 수 없습니다."));
+        return middleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("middle 를 찾을 수 없습니다."));
     }
     public List<MiddleResponseDto> findAll() {
         return middleRepository.findAll().stream().map(MiddleResponseDto::toDto).toList();
@@ -77,6 +77,19 @@ public class MiddleService {
         return new UpdateResponseDto(middle);
 
     }
+
+    public List<MiddleSummaryResponseDto> getMiddleSummaryList(Long userId) {
+        if (userRepository.findById(userId).isEmpty()) {
+            throw new UserNotFoundException();
+        }
+
+        if (middleRepository.getMiddleSummaryByUser(userId).isEmpty()) {
+            throw new DataNotFoundException();
+        }
+
+        return middleRepository.getMiddleSummaryByUser(userId);
+    }
+
     @Transactional
     public void deleteUser(Long userId) {
         User user = userRepository.findById(userId)
